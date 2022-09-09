@@ -38,7 +38,7 @@ class App extends React.Component {
 
   icones = {
     'Primavera' : 'fa-seedling',
-    'Verão' : 'fa-umbrella-beat',
+    'Verão' : 'fa-umbrella-beach',
     'Outono' : 'fa-tree',
     'Inverno' : 'fa-snowman'
   }
