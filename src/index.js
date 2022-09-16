@@ -1,7 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { EstacaoClimatica } from './estacaoClimatica'
+import { EstacaoClimatica } from './EstacaoClimatica'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Loading from './Loading'
+
 class App extends React.Component {
 
   constructor (props){
@@ -75,7 +77,7 @@ class App extends React.Component {
         let data = new Date()
         let estacao = this.obterEstacao(data, posicao.coords.latitude);
         let icone = this.icones[estacao]
-        console.log(icone)
+        //console.log(icone)
         this.setState(
             {
               latitude: posicao.coords.latitude,
@@ -99,15 +101,29 @@ class App extends React.Component {
       <div className="container mt-2">
             <div className="row justify-content-center">
               <div className="col-md-8">
-                    <EstacaoClimatica
-                    icone={this.state.icone}
-                    estacao={this.state.estacao}
-                    latitude={this.state.latitude}
-                    longitude={this.state.longitude}
-                    data={this.state.data}
-                    mensagemDeErro={this.state.mensagemDeErro}
-                    obterLocalizacao={this.obterLocalizacao}
-              />
+                {
+                  (!this.state.latitude && !this.state.mensagemDeErro) ?
+                  <Loading 
+                    //mensagem="Por favor, responda a solicitação de localização"
+                  />
+                  :
+                  this.state.mensagemDeErro ?
+                  <p className="border rounded p-2 fs-1 text-center">
+                      É preciso dar permissão para acesso à localização.
+                      Atualize a página e tente de novo, ajustando a configuração
+                      no seu navegador.
+                  </p>
+                  :
+                  <EstacaoClimatica
+                      icone={this.state.icone}
+                      estacao={this.state.estacao}
+                      latitude={this.state.latitude}
+                      longitude={this.state.longitude}
+                      //data={this.state.data}
+                      //mensagemDeErro={this.state.}
+                      obterLocalizacao={this.obterLocalizacao}
+                  />
+                }
                   <div className="card">
                   <div className="card-body">
                     <div className="d-flex align-items-center border rounded mb-2"

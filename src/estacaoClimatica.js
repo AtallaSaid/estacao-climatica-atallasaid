@@ -7,6 +7,11 @@ export class EstacaoClimatica extends React.Component {
                   data: null
          }
 
+         constructor(props) {
+                  super(props)
+                  console.log('constructor')
+         }
+
          componentDidMount(){
                   console.log("componentDidMount")
                   this.timer = setInterval (() => {
@@ -37,9 +42,7 @@ export class EstacaoClimatica extends React.Component {
                                              {
                                              this.props.latitude ?
                                              `Coordenadas: ${this.props.latitude}, ${this.props.longitude}. Data: ${this.props.data}`
-                                             :
-                                             this.props.mensagemDeErro ?
-                                             `${this.props.mensagemDeErro}`
+
                                              :
                                              'Clique no botão para saber a sua estação climática'
                                              }
