@@ -1,19 +1,44 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { EstacaoClimatica } from './estacaoClimatica'
 import 'bootstrap/dist/css/bootstrap.min.css'
 class App extends React.Component {
 
   constructor (props){
     super(props)
-    this.state = {
-      latitude: null,
-      longitude: null,
-      estacao: null,
-      data: null,
-      icone: null,
-      mensagemDeErro: null
-    }
+    // this.state = {
+    //   latitude: null,
+    //   longitude: null,
+    //   estacao: null,
+    //   data: null,
+    //   icone: null,
+    //   mensagemDeErro: null
+    // }
+    console.log('construtor')
   }
+
+  state = {
+    latitude: null,
+    longitude: null,
+    estacao: null,
+    data: null,
+    icone: null,
+    mensagemDeErro: null
+  }
+
+  componentDidMount(){
+    //console.log('componentDidMount')
+    this.obterLocalizacao()
+    }
+
+    componentDidUpdate (){
+    console.log('componentDidUpdate')
+    }
+
+    componentWillUnmount (){
+    console.log('componentWillUnmount')
+    }
+   
 
   obterEstacao = (data, latitude) => {
     const anoAtual = data.getFullYear()
@@ -69,10 +94,20 @@ class App extends React.Component {
     }
 
   render(){
+    console.log("render")
     return (
       <div className="container mt-2">
             <div className="row justify-content-center">
               <div className="col-md-8">
+                    <EstacaoClimatica
+                    icone={this.state.icone}
+                    estacao={this.state.estacao}
+                    latitude={this.state.latitude}
+                    longitude={this.state.longitude}
+                    data={this.state.data}
+                    mensagemDeErro={this.state.mensagemDeErro}
+                    obterLocalizacao={this.obterLocalizacao}
+              />
                   <div className="card">
                   <div className="card-body">
                     <div className="d-flex align-items-center border rounded mb-2"
@@ -94,8 +129,14 @@ class App extends React.Component {
                         </p>
                       </div>
                           <button onClick={this.obterLocalizacao}
-                          className="btn btn-outline-primary w-100 mt-2">
-                          Qual é a minha estação climática (de acordo com minha localização)?
+                              className="btn btn-outline-primary w-100 mt-2">
+                              Qual é a minha estação climática (de acordo com minha localização)?
+                          </button>
+
+                          <button className="btn btn-outline-danger w-100 mt-2"
+                          onClick={() =>
+                              ReactDOM.unmountComponentAtNode(document.querySelector('#root'))}>
+                              Unmount
                           </button>
                   </div>
               </div>
